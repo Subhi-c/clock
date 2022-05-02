@@ -1,0 +1,87 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Digital Clock </title>
+  <link rel="stylesheet" href="style.css">
+</head>
+<body id="color" onload="initclock()">
+  <div id="button"> 
+    <input type="button" class="buttton"  onclick='blue()'> 
+    <input type="button" class="buttton"  onclick='lightrose()'> 
+    <input type="button" class="buttton" onclick='darkblue()'> 
+  </div>
+  <div>
+    <div class="datetime" id="clock" >
+      <div class="date">
+        <span id="dayname">Day</span>,
+        <span id="month">Month</span>,
+        <span id="daynum">00</span>
+        <span id="year">year</span>
+      </div>
+      <div class="time">
+        <span id="hour">00</span>:
+        <span id="minutes">00</span>:
+        <span id="seconds">00</span>
+        <span id="period">AM</span>
+      </div>
+    </div>
+  </div>
+  <!-- Script Section  -->
+  <script type="text/javascript">
+    function updateclock(){
+      var now = new Date();
+      var dname = now.getDay(),
+      mo = now.getMonth(),
+      dnum = now.getDate(),
+      yr = now.getFullYear(),
+      hou = now.getHours(),
+      min = now.getMinutes(),
+      sec = now.getSeconds(),
+      pe = "AM";
+      if(hou == 0 ){
+        hou = 12;
+      }
+      if(hou > 12){
+        hou = hou -12;
+        pe = "PM";
+      }
+      Number.prototype.pad = function(digits){
+        for(var n = this.toString(); n.length < digits; n = 0+n);
+        return n;
+      }
+      var months =["jan","feb","mar","apr","may","jun","jul","aug","sep","oct","nov","dec"];
+      var week =["sun","mon","tues","wed","thur","fri","sat"];
+      var ids =["dayname","month","daynum","year","hour","minutes","seconds","period"];
+      var values = [week[dname] , months[mo], dnum.pad(2), yr,hou.pad(2),min.pad(2),sec.pad(2),pe];
+      for(var i = 0; i<ids.length; i++)
+      document.getElementById(ids[i]).firstChild.nodeValue = values[i]
+
+    }
+    function initclock(){
+      updateclock();
+      window.setInterval("updateclock()",1)
+    }
+
+    const color = document.getElementById('color')
+    let theme = document.getElementById('clock')
+    function blue(){
+      color.style.background='#272343';
+      theme.style.background = '#272343';
+      
+    }
+    function lightrose(){
+     color.style.background='#f76b8a';
+     theme.style.background = '#f76b8a';
+    }
+    function darkblue(){
+      color.style.background =' #10101E';
+      theme.style.background = '#10101E';
+    }
+
+  </script>
+  
+</body>
+</html>
